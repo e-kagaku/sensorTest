@@ -1,2 +1,2 @@
 # sensorTest
-test programs for sensors
+test programs for sensors using with Arduino
