@@ -40,20 +40,19 @@ void setup()
   //  Serial.println("-- Compare 3 sensors! --");
   delayTime = 2000;
 
-  Serial.println();
 }
 
 void loop()
 {
-  printValuesForCSV();
-  delay(delayTime);
+  if( millis() % delayTime == 0){  
+    time = millis();
+    printValuesForCSV(); 
+  }
 }
 
 void printValuesForCSV()
 {
-
-  time = millis();
-  Serial.print(time);
+  Serial.print((float)time/1000);
 
   Serial.print(", ");
 
