@@ -40,6 +40,7 @@ void setup()
   //  Serial.println("-- Compare 3 sensors! --");
   delayTime = 2000;
 
+
 }
 
 void loop()
