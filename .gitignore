@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/macos,windows
-# Edit at https://www.gitignore.io/?templates=macos,windows
+# Created by https://www.gitignore.io/api/macos,windows,microsoftoffice
+# Edit at https://www.gitignore.io/?templates=macos,windows,microsoftoffice
 
 ### macOS ###
 # General
@@ -30,6 +30,27 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### MicrosoftOffice ###
+*.tmp
+
+# Word temporary
+~$*.doc*
+
+# Word Auto Backup File
+Backup of *.doc*
+
+# Excel temporary
+~$*.xls*
+
+# Excel Backup File
+*.xlk
+
+# PowerPoint temporary
+~$*.ppt*
+
+# Visio autosave temporary files
+*.~vsd*
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -55,4 +76,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/macos,windows
+# End of https://www.gitignore.io/api/macos,windows,microsoftoffice

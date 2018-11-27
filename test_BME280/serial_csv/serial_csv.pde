@@ -4,7 +4,7 @@ Serial myPort;
 boolean flg_start = false;
 String str_format = "time, BME280, TMP36GZ, DHT11";
 String datastr;
-String port = "/dev/cu.usbmodem143220";
+String port = "/dev/cu.usbmodem143101";
 
 void setup()
 {
@@ -19,7 +19,7 @@ void draw() {
     delay(100);
     datastr = myPort.readString();
     if (datastr != null) {
-      if (flg_start) output.println(datastr);
+      if (flg_start) output.print(datastr);
     }
   }
 }
