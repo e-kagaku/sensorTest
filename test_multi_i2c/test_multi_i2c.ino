@@ -9,8 +9,14 @@
 #include <SparkFunMLX90614.h> // SparkFunMLX90614 Arduino library
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
+#include <TinyGPS++.h>
+#include<SoftwareSerial.h>
+TinyGPSPlus tinyGPS;
+SoftwareSerial gps(7,8);
+
 
 #define SEALEVELPRESSURE_HPA (1013.25)
+
 
 
 Adafruit_BME280 bme; // I2C
@@ -22,6 +28,8 @@ bool status_bme,status_therm;
 void setup() 
 {
   Serial.begin(9600); // Initialize Serial to log output
+  gps.begin(9600);
+
 
   status_bme = bme.begin();
   status_therm = therm.begin(); // Initialize thermal IR sensor
@@ -41,7 +49,7 @@ void setup()
 
 void loop() 
 {
-  delay(500);
+  delay(2000);
   setLED(HIGH); //LED on
   
   if (therm.read()) // On success, read() will return 1, on fail 0.
@@ -62,6 +70,34 @@ void loop()
     Serial.print("BME280 Humidity: " + String(bme.readHumidity()));
     Serial.println(" %");
     Serial.println();
+
+    int day1,hour1;
+    day1=tinyGPS.date.day();
+    hour1=tinyGPS.time.hour();
+    if(hour1+9>24){
+      day1=day1+1;
+      hour1=hour1-15;
+    }
+    Serial.print(tinyGPS.date.year());
+    Serial.print("/");
+    Serial.print(tinyGPS.date.month());
+    Serial.print("/");
+    Serial.print(day1);
+    Serial.print(",");
+    Serial.print(hour1);
+    Serial.print(":");
+    if (tinyGPS.time.minute() < 10) Serial.print('0');
+    Serial.print(tinyGPS.time.minute());
+    Serial.print(":");
+    if (tinyGPS.time.second() < 10) Serial.print('0');
+    Serial.print(tinyGPS.time.second()); 
+    Serial.print(",") ;
+    Serial.print(tinyGPS.location.lat(),6);
+    Serial.print(",");
+    Serial.print(tinyGPS.location.lng(),6);
+    Serial.print(",");
+
+
   }
   setLED(LOW);
 
