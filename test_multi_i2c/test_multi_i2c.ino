@@ -50,29 +50,12 @@ void setup()
 
 void loop() 
 {
-  smartDelay(300);
+  smartDelay(2000);
   setLED(HIGH); //LED on
   
   if (therm.read()) // On success, read() will return 1, on fail 0.
   {
-    // Use the object() and ambient() functions to grab the object and ambient
-	// temperatures.
-	// They'll be floats, calculated out to the unit you set with setUnit().
-    Serial.print("Therm Object: " + String(therm.object()));
-    Serial.println(" *C"); // Degree Symbol
-    Serial.print("Therm Ambient: " + String(therm.ambient()));
-    Serial.println(" *C");
-    Serial.print("BME280 Temperature: " + String(bme.readTemperature()));
-    Serial.println(" *C");
-    Serial.print("BME280 Pressure: " + String(bme.readPressure()/100.0F));
-    Serial.println(" hPa");
-    Serial.print("BME280 Altitude: " + String(bme.readAltitude(SEALEVELPRESSURE_HPA)));
-    Serial.println(" m");
-    Serial.print("BME280 Humidity: " + String(bme.readHumidity()));
-    Serial.println(" %");
-    Serial.println();
-
-    int day1,hour1;
+        int day1,hour1;
     day1=tinyGPS.date.day();
     hour1=tinyGPS.time.hour();
     if(hour1+9>24){
@@ -98,8 +81,25 @@ void loop()
     Serial.print(",") ;
     Serial.print(tinyGPS.location.lat(),6);
     Serial.print(",");
-    Serial.print(tinyGPS.location.lng(),6);
-    Serial.print(",");
+    Serial.println(tinyGPS.location.lng(),6);
+
+    // Use the object() and ambient() functions to grab the object and ambient
+	// temperatures.
+	// They'll be floats, calculated out to the unit you set with setUnit().
+    Serial.print("Therm Object: " + String(therm.object()));
+    Serial.println(" *C"); // Degree Symbol
+    Serial.print("Therm Ambient: " + String(therm.ambient()));
+    Serial.println(" *C");
+    Serial.print("BME280 Temperature: " + String(bme.readTemperature()));
+    Serial.println(" *C");
+    Serial.print("BME280 Pressure: " + String(bme.readPressure()/100.0F));
+    Serial.println(" hPa");
+    Serial.print("BME280 Altitude: " + String(bme.readAltitude(SEALEVELPRESSURE_HPA)));
+    Serial.println(" m");
+    Serial.print("BME280 Humidity: " + String(bme.readHumidity()));
+    Serial.println(" %");
+    Serial.println();
+
 
 
   }
