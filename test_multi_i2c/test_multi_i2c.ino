@@ -12,7 +12,7 @@
 #include <TinyGPS++.h>
 #include<SoftwareSerial.h>
 TinyGPSPlus tinyGPS;
-SoftwareSerial gps(7,8);
+SoftwareSerial gps(9,8);
 
 
 #define SEALEVELPRESSURE_HPA (1013.25)
@@ -23,7 +23,7 @@ Adafruit_BME280 bme; // I2C
 IRTherm therm; // Create an IRTherm object to interact with throughout
 
 const byte LED_PIN = 13; // Optional LED attached to pin 8 (active low)
-bool status_bme,status_therm;
+bool status_bme,status_therm,status_gps;
 
 void setup() 
 {
@@ -33,6 +33,7 @@ void setup()
 
   status_bme = bme.begin();
   status_therm = therm.begin(); // Initialize thermal IR sensor
+  status_gps = gps.available();
   therm.setUnit(TEMP_C); // TEMP_C for Celsius 
   if (!status_bme) {
     Serial.println("Could not find a valid BME280 sensor, check wiring!");
@@ -49,7 +50,7 @@ void setup()
 
 void loop() 
 {
-  delay(2000);
+  smartDelay(300);
   setLED(HIGH); //LED on
   
   if (therm.read()) // On success, read() will return 1, on fail 0.
@@ -77,6 +78,9 @@ void loop()
     if(hour1+9>24){
       day1=day1+1;
       hour1=hour1-15;
+    }
+    else{
+      hour1=hour1+9;
     }
     Serial.print(tinyGPS.date.year());
     Serial.print("/");
